@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saurabh-singh02.github.io/Image-Resizing-Tool/sitemap.xml
