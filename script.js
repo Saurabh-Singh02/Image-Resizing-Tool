@@ -16,6 +16,8 @@ const sizeReduction = document.getElementById('sizeReduction');
 const compressionProgress = document.getElementById('compressionProgress');
 const compressionPercent = document.getElementById('compressionPercent');
 const compressionStatus = document.getElementById('compressionStatus');
+const visitorCount = document.getElementById('visitorCount');
+const footerVisitorCount = document.getElementById('footerVisitorCount');
 
 const cropCard = document.getElementById('cropCard');
 const previewCard = document.getElementById('previewCard');
@@ -31,6 +33,39 @@ let originalImageFile;
 let originalImageSize = 0;
 let croppedCanvas;
 let finalBlob;
+
+// Visitor Counter Functionality
+function updateVisitorCount() {
+    // Check if we're in a browser environment
+    if (typeof localStorage !== 'undefined') {
+        // Get current count from localStorage or initialize to 0
+        let count = localStorage.getItem('visitorCount');
+        
+        if (!count) {
+            // First visit - initialize counter
+            count = 1;
+        } else {
+            // Increment counter
+            count = parseInt(count) + 1;
+        }
+        
+        // Save updated count to localStorage
+        localStorage.setItem('visitorCount', count.toString());
+        
+        // Update the display
+        visitorCount.textContent = count;
+        footerVisitorCount.textContent = count;
+    } else {
+        // Fallback if localStorage is not available
+        visitorCount.textContent = 'N/A';
+        footerVisitorCount.textContent = 'N/A';
+    }
+}
+
+// Initialize visitor counter when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateVisitorCount();
+});
 
 // Event Listeners
 imageUpload.addEventListener('change', handleImageUpload);

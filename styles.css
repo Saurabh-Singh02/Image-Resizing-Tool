@@ -15,6 +15,17 @@ body {
     padding: 2rem 0;
     border-radius: 0 0 20px 20px;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.visitor-counter {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
 }
 
 .card {
@@ -168,5 +179,10 @@ body {
     
     .step-label {
         font-size: 0.8rem;
+    }
+    
+    .visitor-counter {
+        position: static;
+        margin-top: 10px;
     }
 }
