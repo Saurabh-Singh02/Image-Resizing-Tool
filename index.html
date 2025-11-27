@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Image Tool - Exact Size Control</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Cropper.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Student Image Tool</h1>
+            <p class="lead">Resize and crop your photos for exam forms with exact file size control</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">Upload Image</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">Crop Image</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">Compress & Download</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Left Column - Upload & Controls -->
+            <div class="col-lg-4">
+                <!-- Upload Card -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Upload Your Photo
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="imageUpload" class="form-label">Select an image</label>
+                            <input class="form-control" type="file" id="imageUpload" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label for="imageSize" class="form-label">Target Size (KB)</label>
+                            <input type="number" class="form-control" id="targetSize" min="10" max="500" value="100">
+                            <div class="form-text">Enter your desired file size in KB (10-500)</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imageQuality" class="form-label">Compression Method</label>
+                            <select class="form-select" id="compressionMethod">
+                                <option value="quality">Quality-based (Faster)</option>
+                                <option value="size">Exact Size (More Accurate)</option>
+                            </select>
+                        </div>
+                        <button id="uploadBtn" class="btn btn-primary w-100" disabled>Upload & Continue</button>
+                    </div>
+                </div>
+
+                <!-- Crop Controls Card -->
+                <div class="card mb-4 hidden" id="cropControlsCard">
+                    <div class="card-header">
+                        Crop Controls
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="aspectRatio" class="form-label">Aspect Ratio</label>
+                            <select class="form-select" id="aspectRatio">
+                                <option value="free">Free</option>
+                                <option value="1">Square (1:1)</option>
+                                <option value="4/3">Standard (4:3)</option>
+                                <option value="16/9">Widescreen (16:9)</option>
+                                <option value="3/4">Portrait (3:4)</option>
+                                <option value="2/3">Passport (2:3)</option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="cropBtn" class="btn btn-primary">Apply Crop</button>
+                            <button id="resetCropBtn" class="btn btn-outline-secondary">Reset Crop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Preview & Results -->
+            <div class="col-lg-8">
+                <!-- Crop Container -->
+                <div class="card mb-4 hidden" id="cropCard">
+                    <div class="card-header">
+                        Crop Your Image
+                    </div>
+                    <div class="card-body">
+                        <div class="crop-container">
+                            <img id="imageToCrop" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Card -->
+                <div class="card mb-4 hidden" id="previewCard">
+                    <div class="card-header">
+                        Final Preview & Compression
+                    </div>
+                    <div class="card-body">
+                        <div class="preview-container mb-3">
+                            <img id="finalPreview" class="preview-image">
+                        </div>
+                        <div class="size-info mb-3">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <strong>Original Size</strong>
+                                    <p id="originalSize">-</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>New Size</strong>
+                                    <p id="newSize">-</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Reduction</strong>
+                                    <p id="sizeReduction">-</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Compression Progress:</span>
+                                <span id="compressionPercent">0%</span>
+                            </div>
+                            <div class="progress">
+                                <div id="compressionProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="compressionStatus" class="compression-status text-muted">Ready to compress</div>
+                        </div>
+                        <div class="d-grid">
+                            <button id="compressBtn" class="btn btn-primary mb-2">Compress to Target Size</button>
+                            <button id="downloadBtn" class="btn btn-success" disabled>Download Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center mt-5">
+        <div class="container">
+            <p class="mb-0">Student Image Tool - Exact file size control for exam forms</p>
+            <p class="mb-0">Free to use • No registration required • Your images are processed locally</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap & Cropper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
