@@ -2,47 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
     <!-- Primary SEO Tags -->
-    <title>Free Student Image Resizer Tool | Resize, Crop & Compress Photos for Exams</title>
-    <meta name="description" content="Free online image resizer for students. Resize, crop, compress and download photos to exact size in KB and pixels. Perfect for exam forms, college forms, government forms, and passport-size photos. No login required.">
-
-    <!-- Keywords for SEO -->
-    <meta name="keywords" content="image resizer, photo size reducer, student image tool, resize image online, compress image, crop image, reduce photo size KB, exam form photo resize, passport photo resize, online photo editor for students">
-
-    <!-- Robots -->
+    <title>Smart Image Resizer | Student Tool | Crop, Compress & Exact Size</title>
+    <meta name="description" content="Smart image resizer for students. Crop, compress & achieve exact file size (KB) for exam forms, college submissions & passport photos. Modern, fast, no login.">
+    <meta name="keywords" content="smart image resizer, student photo tool, exact size compressor, crop passport photo, reduce image KB, online image editor">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Free Student Image Resizer Tool">
-    <meta property="og:description" content="Resize, crop and compress images for exam forms quickly and easily. 100% free online tool for students.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smart Image Resizer — Student Exam Photo Tool">
+    <meta property="og:description" content="Crop, compress and hit exact KB size. Perfect for government exam forms, college applications. Modern interface.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://saurabh-singh02.github.io/Image-Resizing-Tool/">
     <meta property="og:image" content="https://saurabh-singh02.github.io/Image-Resizing-Tool/preview.jpg">
 
-    <!-- Twitter Card -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Student Image Resizer Tool">
-    <meta name="twitter:description" content="Resize, compress and crop images for exam forms, passport photos, and college forms. Fast and free.">
+    <meta name="twitter:title" content="Smart Image Resizer for Students">
+    <meta name="twitter:description" content="Achieve exact file size & perfect crop for exam forms. Free & private.">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap 5 + Cropper.js + Font Awesome 6 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Cropper.js CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <!-- Header -->
     <header class="header text-center">
         <div class="container">
-            <h1 class="display-5 fw-bold">Student Image Resizing Tool</h1>
-            <p class="lead">Resize and crop your photos for governmrnt exam forms with exact file size control</p>
-            <div class="visitor-counter">
-                <small>Visitors: <span id="visitorCount">0</span></small>
+            <h1 class="display-5 fw-bold"><i class="fas fa-magic me-2"></i>Smart Image Resizer</h1>
+            <p class="lead">Crop, compress & hit exact KB size for exam forms, passport & college submissions</p>
+            <div class="visitor-counter mt-2 d-inline-flex">
+                <i class="fas fa-eye"></i> <span id="visitorCount">0</span> visitors
             </div>
         </div>
     </header>
@@ -70,37 +65,38 @@
                 <!-- Upload Card -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Upload Your Photo
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Your Photo
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="imageUpload" class="form-label">Select an image</label>
-                            <input class="form-control" type="file" id="imageUpload" accept="image/*">
+                            <label for="imageUpload" class="form-label fw-semibold"><i class="fas fa-image me-1"></i> Choose image</label>
+                            <input class="form-control" type="file" id="imageUpload" accept="image/jpeg, image/png, image/jpg">
+                            <div class="form-text text-muted">Supports JPG, PNG (max 10MB)</div>
                         </div>
                         <div class="mb-3">
-                            <label for="imageSize" class="form-label">Target Size (KB)</label>
+                            <label for="targetSize" class="form-label fw-semibold"><i class="fas fa-weight-hanging"></i> Target Size (KB)</label>
                             <input type="number" class="form-control" id="targetSize" min="10" max="500" value="100">
-                            <div class="form-text">Enter your desired file size in KB (10-500)</div>
+                            <div class="form-text">Enter desired file size (10KB - 500KB)</div>
                         </div>
                         <div class="mb-3">
-                            <label for="imageQuality" class="form-label">Compression Method</label>
+                            <label for="compressionMethod" class="form-label fw-semibold"><i class="fas fa-sliders-h"></i> Compression Method</label>
                             <select class="form-select" id="compressionMethod">
                                 <option value="quality">Quality-based (Faster)</option>
-                                <option value="size">Exact Size (More Accurate)</option>
+                                <option value="size">Exact Size (Precise)</option>
                             </select>
                         </div>
-                        <button id="uploadBtn" class="btn btn-primary w-100" disabled>Upload & Continue</button>
+                        <button id="uploadBtn" class="btn btn-primary w-100" disabled><i class="fas fa-arrow-right"></i> Upload & Continue</button>
                     </div>
                 </div>
 
                 <!-- Crop Controls Card -->
                 <div class="card mb-4 hidden" id="cropControlsCard">
                     <div class="card-header">
-                        Crop Controls
+                        <i class="fas fa-crop-alt"></i> Crop Controls
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="aspectRatio" class="form-label">Aspect Ratio</label>
+                            <label for="aspectRatio" class="form-label fw-semibold">Aspect Ratio</label>
                             <select class="form-select" id="aspectRatio">
                                 <option value="free">Free</option>
                                 <option value="1">Square (1:1)</option>
@@ -111,8 +107,8 @@
                             </select>
                         </div>
                         <div class="d-grid gap-2">
-                            <button id="cropBtn" class="btn btn-primary">Apply Crop</button>
-                            <button id="resetCropBtn" class="btn btn-outline-secondary">Reset Crop</button>
+                            <button id="cropBtn" class="btn btn-primary"><i class="fas fa-check-circle"></i> Apply Crop</button>
+                            <button id="resetCropBtn" class="btn btn-outline-secondary"><i class="fas fa-undo-alt"></i> Reset Crop</button>
                         </div>
                     </div>
                 </div>
@@ -123,11 +119,14 @@
                 <!-- Crop Container -->
                 <div class="card mb-4 hidden" id="cropCard">
                     <div class="card-header">
-                        Crop Your Image
+                        <i class="fas fa-vector-square"></i> Adjust Crop Area
                     </div>
                     <div class="card-body">
                         <div class="crop-container">
-                            <img id="imageToCrop" class="img-fluid">
+                            <img id="imageToCrop" class="img-fluid" alt="Crop preview">
+                        </div>
+                        <div class="alert alert-info mt-3 mb-0 py-2 small">
+                            <i class="fas fa-info-circle"></i> Drag & resize crop area, then click "Apply Crop"
                         </div>
                     </div>
                 </div>
@@ -135,41 +134,41 @@
                 <!-- Preview Card -->
                 <div class="card mb-4 hidden" id="previewCard">
                     <div class="card-header">
-                        Final Preview & Compression
+                        <i class="fas fa-chart-line"></i> Final Preview & Compression
                     </div>
                     <div class="card-body">
                         <div class="preview-container mb-3">
-                            <img id="finalPreview" class="preview-image">
+                            <img id="finalPreview" class="preview-image" alt="Final resized image">
                         </div>
                         <div class="size-info mb-3">
                             <div class="row text-center">
                                 <div class="col-md-4">
-                                    <strong>Original Size</strong>
-                                    <p id="originalSize">-</p>
+                                    <strong><i class="fas fa-file-image"></i> Original</strong>
+                                    <p id="originalSize" class="mb-0 fw-bold">-</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <strong>New Size</strong>
-                                    <p id="newSize">-</p>
+                                    <strong><i class="fas fa-compress-alt"></i> New Size</strong>
+                                    <p id="newSize" class="mb-0 fw-bold text-primary">-</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <strong>Reduction</strong>
-                                    <p id="sizeReduction">-</p>
+                                    <strong><i class="fas fa-chart-simple"></i> Reduction</strong>
+                                    <p id="sizeReduction" class="mb-0 fw-bold text-success">-</p>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between">
-                                <span>Compression Progress:</span>
+                                <span><i class="fas fa-spinner"></i> Compression Progress:</span>
                                 <span id="compressionPercent">0%</span>
                             </div>
                             <div class="progress">
                                 <div id="compressionProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
                             </div>
-                            <div id="compressionStatus" class="compression-status text-muted">Ready to compress</div>
+                            <div id="compressionStatus" class="compression-status mt-2"><i class="fas fa-check-circle"></i> Ready to compress</div>
                         </div>
-                        <div class="d-grid">
-                            <button id="compressBtn" class="btn btn-primary mb-2">Compress to Target Size</button>
-                            <button id="downloadBtn" class="btn btn-success" disabled>Download Image</button>
+                        <div class="d-grid gap-2">
+                            <button id="compressBtn" class="btn btn-primary"><i class="fas fa-magic"></i> Compress to Target Size</button>
+                            <button id="downloadBtn" class="btn btn-success" disabled><i class="fas fa-download"></i> Download Final Image</button>
                         </div>
                     </div>
                 </div>
@@ -177,16 +176,16 @@
                 <!-- Instructions Card -->
                 <div class="card">
                     <div class="card-header">
-                        Exam Photo Guidelines
+                        <i class="fas fa-graduation-cap"></i> Exam Photo Guidelines
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">✓ Recent passport-style photograph</li>
-                            <li class="list-group-item">✓ Plain light-colored background</li>
-                            <li class="list-group-item">✓ Face clearly visible without shadows</li>
-                            <li class="list-group-item">✓ Neutral expression with both eyes open</li>
-                            <li class="list-group-item">✓ No hats or head coverings (unless for religious reasons)</li>
-                            <li class="list-group-item">✓ File size typically under 200KB for online forms</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> Recent passport-style photograph</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> Plain light-colored background</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> Face clearly visible without shadows</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> Neutral expression with both eyes open</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> No hats or head coverings (unless religious)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> File size under 200KB recommended</li>
                         </ul>
                     </div>
                 </div>
@@ -197,13 +196,13 @@
     <!-- Footer -->
     <footer class="footer text-center mt-5">
         <div class="container">
-            <p class="mb-0">Student Image Tool - Exact file size control for exam forms</p>
-            <p class="mb-0">Free to use • No registration required • Your images are processed locally</p>
+            <p class="mb-0"><i class="fas fa-crown"></i> Smart Image Tool — Exact file size control for exam forms</p>
+            <p class="mb-0">✓ Free to use • No registration • Images stay on your device</p>
             <p class="mb-0 mt-2">Total Visitors: <span id="footerVisitorCount">0</span></p>
         </div>
     </footer>
 
-    <!-- Bootstrap & Cropper.js -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="script.js"></script>
